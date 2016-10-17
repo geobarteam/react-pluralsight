@@ -55,7 +55,7 @@
 	var HomePage_1 = __webpack_require__(3);
 	var header_1 = __webpack_require__(4);
 	var authorPage_1 = __webpack_require__(5);
-	var aboutPage_1 = __webpack_require__(10);
+	var aboutPage_1 = __webpack_require__(11);
 	;
 	var App = (function (_super) {
 	    __extends(App, _super);
@@ -178,38 +178,21 @@
 	};
 	var React = __webpack_require__(1);
 	var AuthorApi = __webpack_require__(6);
+	var authorList_1 = __webpack_require__(10);
 	var Authors = (function (_super) {
 	    __extends(Authors, _super);
 	    function Authors() {
 	        _super.call(this);
 	        this.state = { authors: new Array() };
 	    }
-	    Authors.prototype.componentWillMount = function () {
-	        var authors = new AuthorApi.AuthorApi().getAllAuthors();
-	        console.log(authors);
-	        this.setState({ authors: authors });
+	    Authors.prototype.componentDidMount = function () {
+	        this.setState({ authors: new AuthorApi.AuthorApi().getAllAuthors() });
 	    };
 	    ;
 	    Authors.prototype.render = function () {
-	        var createAuthorRow = function (author) {
-	            return React.createElement("tr", {key: author.id}, 
-	                React.createElement("td", null, 
-	                    React.createElement("a", {href: "/#authors/" + author.id}, author.id)
-	                ), 
-	                React.createElement("td", null, 
-	                    author.firstName, 
-	                    " ", 
-	                    author.lastName));
-	        };
 	        return (React.createElement("div", null, 
 	            React.createElement("h1", null, "Authors"), 
-	            React.createElement("table", {className: "table"}, 
-	                React.createElement("thead", null, 
-	                    React.createElement("tr", null, 
-	                        React.createElement("th", null, "ID"), 
-	                        React.createElement("th", null, "Name"))
-	                ), 
-	                React.createElement("tbody", null, this.state.authors.map(function (x) { return createAuthorRow(x); })))));
+	            React.createElement(authorList_1.AuthorList, {authors: this.state.authors})));
 	    };
 	    return Authors;
 	}(React.Component));
@@ -17307,6 +17290,48 @@
 
 /***/ },
 /* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var AuthorList = (function (_super) {
+	    __extends(AuthorList, _super);
+	    function AuthorList() {
+	        _super.apply(this, arguments);
+	    }
+	    AuthorList.prototype.render = function () {
+	        var createAuthorRow = function (author) {
+	            return React.createElement("tr", {key: author.id}, 
+	                React.createElement("td", null, 
+	                    React.createElement("a", {href: "/#authors/" + author.id}, author.id)
+	                ), 
+	                React.createElement("td", null, 
+	                    author.firstName, 
+	                    " ", 
+	                    author.lastName));
+	        };
+	        return (React.createElement("div", null, 
+	            React.createElement("h1", null, "Authors"), 
+	            React.createElement("table", {className: "table"}, 
+	                React.createElement("thead", null, 
+	                    React.createElement("tr", null, 
+	                        React.createElement("th", null, "ID"), 
+	                        React.createElement("th", null, "Name"))
+	                ), 
+	                React.createElement("tbody", null, this.props.authors.map(function (x) { return createAuthorRow(x); })))));
+	    };
+	    return AuthorList;
+	}(React.Component));
+	exports.AuthorList = AuthorList;
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

@@ -1,10 +1,7 @@
-"use strict";
+import * as React from "react";
 
-var React = require('react');
-
-var About = React.createClass({
-	displayName: 'AboutPage',
-	render: function () {
+export class About extends React.Component<{}, {}> {
+	render() {
 		return (
 			<div>
 				<h1>About</h1>
@@ -24,6 +21,4 @@ var About = React.createClass({
 			</div>
 		); 
 	}
-});
-
-module.exports = About;
+};

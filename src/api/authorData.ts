@@ -1,6 +1,5 @@
-module.exports = {
-	authors: 
-	[
+export class AuthorData {
+ public static authors = [
 		{
 			id: 'cory-house', 
 			firstName: 'Cory', 
@@ -16,5 +15,6 @@ module.exports = {
 			firstName: 'Dan', 
 			lastName: 'Wahlin'
 		}
-	]
-};
+	];
+}
+

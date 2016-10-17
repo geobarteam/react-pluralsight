@@ -10,20 +10,27 @@ export interface Author {
 export interface AuthorProperties { authors:Author[] }
 
 export class Authors extends React.Component<{}, AuthorProperties>{
+      constructor(){
+          super();
+          this.state = { authors: new Array<Author>() };
+      }
+          
       componentWillMount(){
           var authors = new AuthorApi.AuthorApi().getAllAuthors() ;
           console.log(authors);
           this.setState({ authors: authors })
       };
 
-      private createAuthorRow(author:Author) {
+      private createAuthorRow(author:Author): JSX.Element {
+          return (
              <tr key={author.id}>
                 <td><a href={"/#authors/" + author.id}>{author.id}</a></td>
                 <td>{author.firstName} {author.lastName}</td>
              </tr>
-         };
+             );
+      };
 
-      render(){
+      render() : JSX.Element {
          return(
              <div>
                 <h1>Authors</h1>

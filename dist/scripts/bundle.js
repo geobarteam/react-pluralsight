@@ -181,7 +181,8 @@
 	var Authors = (function (_super) {
 	    __extends(Authors, _super);
 	    function Authors() {
-	        _super.apply(this, arguments);
+	        _super.call(this);
+	        this.state = { authors: new Array() };
 	    }
 	    Authors.prototype.componentWillMount = function () {
 	        var authors = new AuthorApi.AuthorApi().getAllAuthors();
@@ -190,14 +191,14 @@
 	    };
 	    ;
 	    Authors.prototype.createAuthorRow = function (author) {
-	        React.createElement("tr", {key: author.id}, 
+	        return (React.createElement("tr", {key: author.id}, 
 	            React.createElement("td", null, 
 	                React.createElement("a", {href: "/#authors/" + author.id}, author.id)
 	            ), 
 	            React.createElement("td", null, 
 	                author.firstName, 
 	                " ", 
-	                author.lastName));
+	                author.lastName)));
 	    };
 	    ;
 	    Authors.prototype.render = function () {

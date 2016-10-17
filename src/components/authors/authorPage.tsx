@@ -21,16 +21,13 @@ export class Authors extends React.Component<{}, AuthorProperties>{
           this.setState({ authors: authors })
       };
 
-      private createAuthorRow(author:Author): JSX.Element {
-          return (
+      render() : JSX.Element {
+          let createAuthorRow = (author:Author) => 
              <tr key={author.id}>
                 <td><a href={"/#authors/" + author.id}>{author.id}</a></td>
                 <td>{author.firstName} {author.lastName}</td>
-             </tr>
-             );
-      };
-
-      render() : JSX.Element {
+             </tr>;
+         
          return(
              <div>
                 <h1>Authors</h1>
@@ -42,7 +39,7 @@ export class Authors extends React.Component<{}, AuthorProperties>{
                     </tr>
 					</thead>
 					<tbody>
-						{ this.state.authors.map(x => this.createAuthorRow(x)) }
+						{ this.state.authors.map(x => createAuthorRow(x)) }
 					</tbody>
 				</table>
 			</div>

@@ -190,19 +190,17 @@
 	        this.setState({ authors: authors });
 	    };
 	    ;
-	    Authors.prototype.createAuthorRow = function (author) {
-	        return (React.createElement("tr", {key: author.id}, 
-	            React.createElement("td", null, 
-	                React.createElement("a", {href: "/#authors/" + author.id}, author.id)
-	            ), 
-	            React.createElement("td", null, 
-	                author.firstName, 
-	                " ", 
-	                author.lastName)));
-	    };
-	    ;
 	    Authors.prototype.render = function () {
-	        var _this = this;
+	        var createAuthorRow = function (author) {
+	            return React.createElement("tr", {key: author.id}, 
+	                React.createElement("td", null, 
+	                    React.createElement("a", {href: "/#authors/" + author.id}, author.id)
+	                ), 
+	                React.createElement("td", null, 
+	                    author.firstName, 
+	                    " ", 
+	                    author.lastName));
+	        };
 	        return (React.createElement("div", null, 
 	            React.createElement("h1", null, "Authors"), 
 	            React.createElement("table", {className: "table"}, 
@@ -211,7 +209,7 @@
 	                        React.createElement("th", null, "ID"), 
 	                        React.createElement("th", null, "Name"))
 	                ), 
-	                React.createElement("tbody", null, this.state.authors.map(function (x) { return _this.createAuthorRow(x); })))));
+	                React.createElement("tbody", null, this.state.authors.map(function (x) { return createAuthorRow(x); })))));
 	    };
 	    return Authors;
 	}(React.Component));

@@ -1,14 +1,7 @@
-"use strict";
-
-var React = require('react');
+import * as React from "react";
 
 
-class Header extends React.Component{
-  
-  displayName(){ 
-    return "Header";
-  }
-
+export class Header extends React.Component<{},{}>{
   render(){
         return (
         <nav className="navbar navbar-default">
@@ -27,4 +20,3 @@ class Header extends React.Component{
   }
 }
 
-module.exports = Header;

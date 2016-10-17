@@ -1,21 +1,17 @@
 "use strict";
-
 var gulp = require('gulp');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
-var exec = require('child_process').exec;
-var eslint = require('gulp-eslint');
 var rename = require('gulp-rename');
+var webpack = require('webpack-stream');
+var exec = require('child_process').exec;
 
 var config = {
     paths:{
         html: './src/*.html',
         images:'./src/images/*',
-        js: ['./src/**/*.js', './src/**/*.jsx'],
         dist: './dist',
-        mainJs: 'src/main.jsx',
+        tsx:'./src/**/*.tsx',
+        reactLib: ['node_modules/react/dist/react.js', 'node_modules/react-dom/dist/react-dom.js'],
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -31,15 +27,16 @@ gulp.task('lite-server', function (cb) {
   });
 });
 
-gulp.task('js', function(){
-    browserify(config.paths.mainJs, {debug: true,  extension: [ "jsx" ]})
-    .transform(reactify)
-		.bundle()
-		.on('error', console.error.bind(console))
-		.pipe(source('bundle.js'))
-		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+gulp.task('webpack', function() {
+ return gulp.src('src/index.tsx')
+  .pipe(webpack( require('./webpack.config.js') ))
+  .pipe(gulp.dest('./'));
 });
 
+gulp.task('lib', function(){
+    gulp.src(config.paths.reactLib)
+        .pipe(gulp.dest(config.paths.dist + '/lib'));
+});
 
 gulp.task('html', function(){
     gulp.src(config.paths.html)
@@ -60,15 +57,10 @@ gulp.task('css', function(){
         .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
-gulp.task('lint', function(){
-    return gulp.src(config.paths.js)
-        .pipe(eslint({config: 'eslint.config.json'}))
-        .pipe(eslint.format());
-});
 
 gulp.task('watch', function(){
     gulp.watch(config.paths.html, ['html']);
-    gulp.watch(config.paths.js, ['js', 'lint']);
+    gulp.watch(config.paths.tsx, ['webpack']);
 });
 
-gulp.task('default', ['lite-server','html','images','js', 'css','lint', 'watch']);
+gulp.task('default', ['lite-server','html','lib','images', 'css','webpack', 'watch']);

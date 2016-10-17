@@ -7,13 +7,15 @@ var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
 var exec = require('child_process').exec;
 var eslint = require('gulp-eslint');
+var rename = require('gulp-rename');
 
 var config = {
     paths:{
         html: './src/*.html',
-        js: './src/**/*.js',
+        images:'./src/images/*',
+        js: ['./src/**/*.js', './src/**/*.jsx'],
         dist: './dist',
-        mainJs: 'src/main.js',
+        mainJs: 'src/main.jsx',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -30,17 +32,25 @@ gulp.task('lite-server', function (cb) {
 });
 
 gulp.task('js', function(){
-    browserify(config.paths.mainJs)
-        .transform(reactify)
-        .bundle()
-        .on('error', console.error.bind(console))
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest(config.paths.dist + '/scripts'));
+    browserify(config.paths.mainJs, {debug: true,  extension: [ "jsx" ]})
+    .transform(reactify)
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('bundle.js'))
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 });
 
 
 gulp.task('html', function(){
     gulp.src(config.paths.html)
+        .pipe(gulp.dest(config.paths.dist));
+});
+
+gulp.task('images', function(){
+    gulp.src(config.paths.images)
+        .pipe(gulp.dest(config.paths.dist + '/images'));
+    
+    gulp.src('./src/favicon.ico')
         .pipe(gulp.dest(config.paths.dist));
 });
 
@@ -61,4 +71,4 @@ gulp.task('watch', function(){
     gulp.watch(config.paths.js, ['js', 'lint']);
 });
 
-gulp.task('default', ['html','js','lint', 'css', 'watch', 'lite-server']);
+gulp.task('default', ['lite-server','html','images','js', 'css','lint', 'watch']);

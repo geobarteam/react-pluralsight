@@ -4,7 +4,7 @@ import {Author} from './author';
 export interface AuthorProperties { authors:Author[] }
 
 export class AuthorList extends React.Component<AuthorProperties, {}>{
-
+    
       render() : JSX.Element {
           let createAuthorRow = (author:Author) => 
              <tr key={author.id}>

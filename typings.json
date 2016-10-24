@@ -1,9 +1,6 @@
 {
   "dependencies": {
-    "lodash": "registry:npm/lodash#4.0.0+20161015015725",
-    "react-router": "registry:npm/react-router#2.4.0+20160915183637"
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725"
   },
-  "globalDependencies": {
-    "react-router": "registry:dt/react-router#2.0.0+20160928130202"
-  }
+  "globalDependencies": {}
 }

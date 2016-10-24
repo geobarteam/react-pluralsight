@@ -13,18 +13,14 @@ var ManageAuthorPage = (function (_super) {
         _super.call(this);
         this.author = new author_1.Author();
         this.state = { author: new author_1.Author() };
+        this.setAuthorState = this.setAuthorState.bind(this);
     }
-    ManageAuthorPage.prototype.componentDidMount = function () {
-        //       this.setState({ author:new Author() });
-    };
-    ;
-    ManageAuthorPage.prototype.handleAuthorChange = function (event) {
-        var field = event.target.name;
-        this.state.author[field] = event.target.value;
-        this.setState({ author: this.state.author });
+    ManageAuthorPage.prototype.setAuthorState = function (event) {
+        this.author[event.target.name] = event.target.value;
+        this.setState({ author: this.author });
     };
     ManageAuthorPage.prototype.render = function () {
-        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.handleAuthorChange}));
+        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.setAuthorState}));
     };
     return ManageAuthorPage;
 }(React.Component));

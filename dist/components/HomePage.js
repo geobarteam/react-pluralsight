@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var React = require("react");
+var react_router_1 = require('react-router');
 var Home = (function (_super) {
     __extends(Home, _super);
     function Home() {
@@ -13,7 +14,8 @@ var Home = (function (_super) {
     Home.prototype.render = function () {
         return (React.createElement("div", {className: "jumbotron"}, 
             React.createElement("h1", null, "Pluralsight Administration"), 
-            React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web apps.")));
+            React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web apps."), 
+            React.createElement(react_router_1.Link, {to: "/about", className: "btn btn-primary btn-lg"}, "Learn more")));
     };
     return Home;
 }(React.Component));

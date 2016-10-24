@@ -5912,15 +5912,22 @@
 
 	"use strict";
 	var React = __webpack_require__(1);
+	var Router = __webpack_require__(3);
 	var react_router_1 = __webpack_require__(3);
 	var app_1 = __webpack_require__(68);
 	var HomePage_1 = __webpack_require__(70);
 	var AboutPage_1 = __webpack_require__(71);
 	var AuthorPage_1 = __webpack_require__(72);
+	var manageAuthorPage_1 = __webpack_require__(78);
+	var NotFoundPage_1 = __webpack_require__(82);
+	var Redirect = Router.Redirect;
 	var routeMap = (React.createElement(react_router_1.Route, {path: "/", component: app_1.App}, 
 	    React.createElement(react_router_1.IndexRoute, {component: HomePage_1.Home}), 
 	    React.createElement(react_router_1.Route, {path: "about", component: AboutPage_1.About}), 
-	    React.createElement(react_router_1.Route, {path: "authors", component: AuthorPage_1.Authors})));
+	    React.createElement(react_router_1.Route, {path: "authors", component: AuthorPage_1.Authors}), 
+	    React.createElement(react_router_1.Route, {path: "author", component: manageAuthorPage_1.ManageAuthorPage}), 
+	    React.createElement(Redirect, {from: 'about-us', to: 'about'}), 
+	    React.createElement(react_router_1.Route, {path: '*', component: NotFoundPage_1.NotFoundPage})));
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = routeMap;
 
@@ -6005,6 +6012,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
+	var react_router_1 = __webpack_require__(3);
 	var Home = (function (_super) {
 	    __extends(Home, _super);
 	    function Home() {
@@ -6013,7 +6021,8 @@
 	    Home.prototype.render = function () {
 	        return (React.createElement("div", {className: "jumbotron"}, 
 	            React.createElement("h1", null, "Pluralsight Administration"), 
-	            React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web apps.")));
+	            React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web apps."), 
+	            React.createElement(react_router_1.Link, {to: "/about", className: "btn btn-primary btn-lg"}, "Learn more")));
 	    };
 	    return Home;
 	}(React.Component));
@@ -6036,6 +6045,8 @@
 	    function About() {
 	        _super.apply(this, arguments);
 	    }
+	    About.willTransitionTo = function (transition, params, query, callback) {
+	    };
 	    About.prototype.render = function () {
 	        return (React.createElement("div", null, 
 	            React.createElement("h1", null, "About"), 
@@ -6066,6 +6077,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
+	var react_router_1 = __webpack_require__(3);
 	var AuthorApi = __webpack_require__(73);
 	var authorList_1 = __webpack_require__(77);
 	var Authors = (function (_super) {
@@ -6081,6 +6093,7 @@
 	    Authors.prototype.render = function () {
 	        return (React.createElement("div", null, 
 	            React.createElement("h1", null, "Authors"), 
+	            React.createElement(react_router_1.Link, {to: "/author", className: "btn btn-default"}, "Add Author"), 
 	            React.createElement(authorList_1.AuthorList, {authors: this.state.authors})));
 	    };
 	    return Authors;
@@ -23217,6 +23230,143 @@
 	    return AuthorList;
 	}(React.Component));
 	exports.AuthorList = AuthorList;
+
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var authorForm_1 = __webpack_require__(79);
+	var author_1 = __webpack_require__(81);
+	var ManageAuthorPage = (function (_super) {
+	    __extends(ManageAuthorPage, _super);
+	    function ManageAuthorPage() {
+	        _super.call(this);
+	        this.author = new author_1.Author();
+	        this.state = { author: new author_1.Author() };
+	        this.setAuthorState = this.setAuthorState.bind(this);
+	    }
+	    ManageAuthorPage.prototype.setAuthorState = function (event) {
+	        this.author[event.target.name] = event.target.value;
+	        this.setState({ author: this.author });
+	    };
+	    ManageAuthorPage.prototype.render = function () {
+	        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.setAuthorState}));
+	    };
+	    return ManageAuthorPage;
+	}(React.Component));
+	exports.ManageAuthorPage = ManageAuthorPage;
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var textInput_1 = __webpack_require__(80);
+	var AuthorForm = (function (_super) {
+	    __extends(AuthorForm, _super);
+	    function AuthorForm() {
+	        _super.apply(this, arguments);
+	    }
+	    AuthorForm.prototype.render = function () {
+	        return (React.createElement("form", null, 
+	            React.createElement("h1", null, "Manage Author"), 
+	            React.createElement(textInput_1.Input, {name: "firstName", label: "First Name", value: this.props.author.firstName, onChange: this.props.onChange}), 
+	            React.createElement(textInput_1.Input, {name: "lastName", label: "Last Name", value: this.props.author.lastName, onChange: this.props.onChange}), 
+	            React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default"})));
+	    };
+	    return AuthorForm;
+	}(React.Component));
+	exports.AuthorForm = AuthorForm;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var Input = (function (_super) {
+	    __extends(Input, _super);
+	    function Input() {
+	        _super.apply(this, arguments);
+	    }
+	    Input.prototype.render = function () {
+	        var wrapperClass = 'form-group';
+	        if (this.props.error && this.props.error.length > 0) {
+	            wrapperClass += " " + 'has-error';
+	        }
+	        return (React.createElement("div", {className: wrapperClass}, 
+	            React.createElement("label", {htmlFor: this.props.name}, this.props.label), 
+	            React.createElement("div", {className: "field"}, 
+	                React.createElement("input", {type: "text", name: this.props.name, className: "form-control", placeholder: this.props.placeholder, ref: this.props.name, value: this.props.value, onChange: this.props.onChange}), 
+	                React.createElement("div", {className: "input"}, this.props.error))));
+	    };
+	    return Input;
+	}(React.Component));
+	exports.Input = Input;
+
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Author = (function () {
+	    function Author() {
+	    }
+	    return Author;
+	}());
+	exports.Author = Author;
+
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var react_router_1 = __webpack_require__(3);
+	var NotFoundPage = (function (_super) {
+	    __extends(NotFoundPage, _super);
+	    function NotFoundPage() {
+	        _super.apply(this, arguments);
+	    }
+	    NotFoundPage.prototype.render = function () {
+	        return (React.createElement("div", null, 
+	            React.createElement("h1", null, "Page Not Found"), 
+	            React.createElement("p", null, "Whoops! Sorry, there is nothing to see here."), 
+	            React.createElement("p", null, 
+	                React.createElement(react_router_1.Link, {to: "/"}, "Back to Home")
+	            )));
+	    };
+	    return NotFoundPage;
+	}(React.Component));
+	exports.NotFoundPage = NotFoundPage;
 
 
 /***/ }

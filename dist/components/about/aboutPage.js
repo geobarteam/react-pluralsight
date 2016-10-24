@@ -10,6 +10,8 @@ var About = (function (_super) {
     function About() {
         _super.apply(this, arguments);
     }
+    About.willTransitionTo = function (transition, params, query, callback) {
+    };
     About.prototype.render = function () {
         return (React.createElement("div", null, 
             React.createElement("h1", null, "About"), 

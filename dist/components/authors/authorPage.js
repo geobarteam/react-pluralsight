@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var React = require("react");
+var react_router_1 = require('react-router');
 var AuthorApi = require('../../api/authorApi');
 var authorList_1 = require('./authorList');
 var Authors = (function (_super) {
@@ -20,6 +21,7 @@ var Authors = (function (_super) {
     Authors.prototype.render = function () {
         return (React.createElement("div", null, 
             React.createElement("h1", null, "Authors"), 
+            React.createElement(react_router_1.Link, {to: "/author", className: "btn btn-default"}, "Add Author"), 
             React.createElement(authorList_1.AuthorList, {authors: this.state.authors})));
     };
     return Authors;

@@ -1,6 +1,10 @@
 import * as React from "react";
 
 export class About extends React.Component<{}, {}> {
+	static willTransitionTo(transition: any, params:any, query:any, callback:any){
+
+		}
+	
 	render() {
 		return (
 			<div>

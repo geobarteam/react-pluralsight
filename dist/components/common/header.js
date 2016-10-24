@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var React = require("react");
+var react_router_1 = require('react-router');
 var Header = (function (_super) {
     __extends(Header, _super);
     function Header() {
@@ -18,13 +19,13 @@ var Header = (function (_super) {
                 ), 
                 React.createElement("ul", {className: "nav navbar-nav"}, 
                     React.createElement("li", null, 
-                        React.createElement("a", {href: "/"}, "Home")
+                        React.createElement(react_router_1.Link, {to: "/"}, "Home")
                     ), 
                     React.createElement("li", null, 
-                        React.createElement("a", {href: "/#authors"}, "Authors")
+                        React.createElement(react_router_1.Link, {to: "/authors"}, "Authors")
                     ), 
                     React.createElement("li", null, 
-                        React.createElement("a", {href: "/#about"}, "About")
+                        React.createElement(react_router_1.Link, {to: "/about"}, "About")
                     )))
         ));
     };

@@ -23246,26 +23246,50 @@
 	var authorForm_1 = __webpack_require__(79);
 	var author_1 = __webpack_require__(81);
 	var authorApi_1 = __webpack_require__(73);
+	var ManageAuthorPageErrors = (function () {
+	    function ManageAuthorPageErrors() {
+	    }
+	    return ManageAuthorPageErrors;
+	}());
+	exports.ManageAuthorPageErrors = ManageAuthorPageErrors;
 	var ManageAuthorPage = (function (_super) {
 	    __extends(ManageAuthorPage, _super);
 	    function ManageAuthorPage() {
 	        _super.call(this);
 	        this.author = new author_1.Author();
-	        this.state = { author: new author_1.Author() };
+	        this.errors = new ManageAuthorPageErrors();
+	        this.state = { author: this.author, errors: this.errors };
 	        this.AuthorApi = new authorApi_1.AuthorApi();
 	        this.setAuthorState = this.setAuthorState.bind(this);
 	        this.saveAuthor = this.saveAuthor.bind(this);
 	    }
 	    ManageAuthorPage.prototype.setAuthorState = function (event) {
 	        this.author[event.target.name] = event.target.value;
-	        this.setState({ author: this.author });
+	        this.setState({ author: this.author, errors: this.errors });
+	    };
+	    ManageAuthorPage.prototype.authorFormIsValid = function () {
+	        var formIsValid = true;
+	        this.errors = new ManageAuthorPageErrors();
+	        if (this.state.author.firstName.length < 3) {
+	            this.errors.firstName = 'First name must be at least 3 characters.';
+	            formIsValid = false;
+	        }
+	        if (this.state.author.lastName.length < 3) {
+	            this.errors.lastName = 'Last name must be at least 3 characters.';
+	            formIsValid = false;
+	        }
+	        this.setState({ author: this.author, errors: this.errors });
+	        return formIsValid;
 	    };
 	    ManageAuthorPage.prototype.saveAuthor = function (event) {
 	        event.preventDefault();
+	        if (!this.authorFormIsValid()) {
+	            return;
+	        }
 	        this.AuthorApi.saveAuthor(this.state.author);
 	    };
 	    ManageAuthorPage.prototype.render = function () {
-	        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.setAuthorState, onSave: this.saveAuthor}));
+	        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.setAuthorState, onSave: this.saveAuthor, errors: this.errors}));
 	    };
 	    return ManageAuthorPage;
 	}(React.Component));
@@ -23292,8 +23316,8 @@
 	    AuthorForm.prototype.render = function () {
 	        return (React.createElement("form", null, 
 	            React.createElement("h1", null, "Manage Author"), 
-	            React.createElement(textInput_1.Input, {name: "firstName", label: "First Name", value: this.props.author.firstName, onChange: this.props.onChange}), 
-	            React.createElement(textInput_1.Input, {name: "lastName", label: "Last Name", value: this.props.author.lastName, onChange: this.props.onChange}), 
+	            React.createElement(textInput_1.Input, {name: "firstName", label: "First Name", value: this.props.author.firstName, onChange: this.props.onChange, error: this.props.errors.firstName}), 
+	            React.createElement(textInput_1.Input, {name: "lastName", label: "Last Name", value: this.props.author.lastName, onChange: this.props.onChange, error: this.props.errors.lastName}), 
 	            React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default", onClick: this.props.onSave})));
 	    };
 	    return AuthorForm;
@@ -23340,6 +23364,9 @@
 	"use strict";
 	var Author = (function () {
 	    function Author() {
+	        this.id = -1;
+	        this.firstName = "";
+	        this.lastName = "";
 	    }
 	    return Author;
 	}());

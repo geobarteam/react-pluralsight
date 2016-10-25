@@ -23,7 +23,7 @@ export class Input extends React.Component<InputProperties, {}>{
                 value={this.props.value}
                 onChange={this.props.onChange} />
             <div className="input">{this.props.error}</div>
-            </div>
+         </div>
       </div>
         )
     }

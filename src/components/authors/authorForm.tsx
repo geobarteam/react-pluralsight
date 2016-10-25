@@ -2,7 +2,7 @@ import * as React from "react";
 import {Author} from './author';
 import {Input} from '../common/textInput'
 
-export interface AuthorFormProperties { author:Author, onChange:any, errors?:any }
+export interface AuthorFormProperties { author:Author, onChange:any, onSave:any, errors?:any }
 
 export class AuthorForm extends React.Component<AuthorFormProperties, {}>{
       render() : JSX.Element {
@@ -23,7 +23,7 @@ export class AuthorForm extends React.Component<AuthorFormProperties, {}>{
 					onChange={this.props.onChange}
 					 />
 
-				<input type="submit" value="Save" className="btn btn-default"  />
+				<input type="submit" value="Save" className="btn btn-default" onClick={this.props.onSave} />
 			</form>
          );
       }

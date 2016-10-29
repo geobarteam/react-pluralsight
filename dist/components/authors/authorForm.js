@@ -14,9 +14,9 @@ var AuthorForm = (function (_super) {
     AuthorForm.prototype.render = function () {
         return (React.createElement("form", null, 
             React.createElement("h1", null, "Manage Author"), 
-            React.createElement(textInput_1.Input, {name: "firstName", label: "First Name", value: this.props.author.firstName, onChange: this.props.onChange}), 
-            React.createElement(textInput_1.Input, {name: "lastName", label: "Last Name", value: this.props.author.lastName, onChange: this.props.onChange}), 
-            React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default"})));
+            React.createElement(textInput_1.Input, {name: "firstName", label: "First Name", value: this.props.author.firstName, onChange: this.props.onChange, error: this.props.errors.firstName}), 
+            React.createElement(textInput_1.Input, {name: "lastName", label: "Last Name", value: this.props.author.lastName, onChange: this.props.onChange, error: this.props.errors.lastName}), 
+            React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default", onClick: this.props.onSave})));
     };
     return AuthorForm;
 }(React.Component));

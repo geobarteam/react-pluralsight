@@ -11,8 +11,7 @@ import { Authors } from './components/authors/AuthorPage';
 
 function render(){
     ReactDOM.render(
-    <Router history={browserHistory}>
-        {routes}
+    <Router history={browserHistory} routes={routes}>       
     </Router>, document.getElementById('app')); 
 };
 

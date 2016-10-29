@@ -1,12 +1,17 @@
+const webPack = require('webpack');
+
 module.exports = {
     entry: "./src/index.tsx",
     output: {
         filename: "./dist/scripts/bundle.js",
     },
-
+    debug: true,
+    noInfo: false,
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
-
+     plugins: [
+        new webPack.NoErrorsPlugin(),
+    ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]

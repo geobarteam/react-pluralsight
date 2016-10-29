@@ -50,7 +50,7 @@
 	var react_router_1 = __webpack_require__(3);
 	var route_1 = __webpack_require__(67);
 	function render() {
-	    ReactDOM.render(React.createElement(react_router_1.Router, {history: react_router_1.browserHistory}, route_1.default), document.getElementById('app'));
+	    ReactDOM.render(React.createElement(react_router_1.Router, {history: react_router_1.browserHistory, routes: route_1.default}), document.getElementById('app'));
 	}
 	;
 	render();
@@ -23256,16 +23256,18 @@
 	    __extends(ManageAuthorPage, _super);
 	    function ManageAuthorPage() {
 	        _super.call(this);
+	        this.dirty = false;
 	        this.author = new author_1.Author();
 	        this.errors = new ManageAuthorPageErrors();
-	        this.state = { author: this.author, errors: this.errors };
+	        this.state = { author: this.author, errors: this.errors, dirty: this.dirty };
 	        this.AuthorApi = new authorApi_1.AuthorApi();
 	        this.setAuthorState = this.setAuthorState.bind(this);
 	        this.saveAuthor = this.saveAuthor.bind(this);
 	    }
 	    ManageAuthorPage.prototype.setAuthorState = function (event) {
+	        this.dirty = true;
 	        this.author[event.target.name] = event.target.value;
-	        this.setState({ author: this.author, errors: this.errors });
+	        this.setState({ author: this.author, errors: this.errors, dirty: this.dirty });
 	    };
 	    ManageAuthorPage.prototype.authorFormIsValid = function () {
 	        var formIsValid = true;
@@ -23278,7 +23280,7 @@
 	            this.errors.lastName = 'Last name must be at least 3 characters.';
 	            formIsValid = false;
 	        }
-	        this.setState({ author: this.author, errors: this.errors });
+	        this.setState({ author: this.author, errors: this.errors, dirty: this.dirty });
 	        return formIsValid;
 	    };
 	    ManageAuthorPage.prototype.saveAuthor = function (event) {
@@ -23290,6 +23292,9 @@
 	    };
 	    ManageAuthorPage.prototype.render = function () {
 	        return (React.createElement(authorForm_1.AuthorForm, {author: this.state.author, onChange: this.setAuthorState, onSave: this.saveAuthor, errors: this.errors}));
+	    };
+	    ManageAuthorPage.contextTypes = {
+	        router: React.PropTypes.object.isRequired,
 	    };
 	    return ManageAuthorPage;
 	}(React.Component));

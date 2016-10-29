@@ -19,13 +19,6 @@ var config = {
     }
 };
 
-gulp.task('lite-server', function (cb) {
-  exec('npm run lite', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
-});
 
 gulp.task('webpack', function() {
  return gulp.src('src/index.tsx')
@@ -63,4 +56,4 @@ gulp.task('watch', function(){
     gulp.watch(config.paths.tsx, ['webpack']);
 });
 
-gulp.task('default', ['lite-server','html','lib','images', 'css','webpack', 'watch']);
+gulp.task('default', ['html','lib','images', 'css','webpack', 'watch']);

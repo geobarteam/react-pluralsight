@@ -32,6 +32,7 @@
     "jquery": "^3.1.1",
     "lite-server": "^2.2.2",
     "lodash": "^4.16.4",
+    "npm-run-all": "^3.1.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
@@ -42,6 +43,7 @@
     "webpack-stream": "^3.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.38",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.9.3"
   }
